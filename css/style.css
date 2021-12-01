@@ -22,8 +22,10 @@ section.panel {
   border: 1rem solid #121212;
   font-size: 2rem;
   text-align: center;
-  display: grid;
-  place-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 section.panel.permission {
@@ -45,6 +47,10 @@ section.panel.error {
 
 section.panel h1 {
   font-size: 10rem;
+}
+
+section.panel img {
+  display: block;
 }
 
 section.panel.hidden {

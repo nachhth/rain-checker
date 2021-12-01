@@ -36,14 +36,16 @@ function showPositive({ city, temperature, weather, nextRain }) {
   const text = positive.querySelector('p');
   text.innerHTML = `
   Ahora mismo hay ${Math.round(temperature)}º C en ${city}, ${weather} y ${
-    nextRain > 0 ? `probablemente llueva en ${nextRain} hora(s).` : '<strong>toca agarrar el paraguas</strong>.'
+    nextRain > 0 ? `<strong>probablemente llueva en ${nextRain} hora(s)</strong>.` : '<strong>toca agarrar el paraguas</strong>.'
   }`;
 }
 function showNegative({ city, temperature, weather }) {
   showPanel(negative);
   const text = negative.querySelector('p');
   text.innerHTML = `
-  Ahora mismo hay ${Math.round(temperature)}º C en ${city} y parece que <strong>no lloverá</strong> en las próximas ${RAIN_MARGIN} horas.`;
+  Ahora mismo hay ${Math.round(
+    temperature
+  )}º C en ${city}, ${weather} y parece que <strong>no lloverá</strong> en las próximas ${RAIN_MARGIN} horas.`;
 }
 
 async function getWeatherData({ latitude, longitude }) {
