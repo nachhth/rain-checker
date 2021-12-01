@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@600;900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Work sans', sans-serif;
+  min-height: 100vh;
+  background-color: #121212;
+  background-image: url('/img/loading.svg');
+  background-size: 5rem;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+section.panel {
+  min-height: 100vh;
+  padding: 2rem;
+  border: 1rem solid #121212;
+  font-size: 2rem;
+  text-align: center;
+  display: grid;
+  place-content: center;
+}
+
+section.panel.permission {
+  background-color: #121212;
+  color: whitesmoke;
+}
+
+section.panel.positive {
+  background-color: steelblue;
+}
+
+section.panel.negative {
+  background-color: palevioletred;
+}
+
+section.panel.error {
+  background-color: lightsalmon;
+}
+
+section.panel h1 {
+  font-size: 10rem;
+}
+
+section.panel.hidden {
+  display: none;
+}
+
+.cta {
+  font-family: 'Work sans', sans-serif;
+  font-weight: 900;
+  padding: 1rem;
+  width: 20rem;
+  display: block;
+  margin: 4rem auto 0 auto;
+  font-size: 1.5rem;
+  background-color: whitesmoke;
+  color: #121212;
+  text-decoration: none;
+  border: none;
+  text-transform: uppercase;
+}
+
+header {
+  position: absolute;
+  top: 2rem;
+  left: 0;
+  width: 100%;
+  text-align: center;
+}
+
+header img {
+  max-width: 5rem;
+}
