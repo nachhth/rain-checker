@@ -70,6 +70,12 @@ section.panel.hidden {
   text-decoration: none;
   border: none;
   text-transform: uppercase;
+  border-radius: 15px;
+}
+
+.update {
+  background-color: #121212;
+  color: whitesmoke;
 }
 
 header {

@@ -48,7 +48,7 @@ function showNegative({ city, temperature, weather }) {
   )}º C en ${city}, ${weather} y parece que <strong>no lloverá</strong> en las próximas ${RAIN_MARGIN} horas.`;
 }
 
-async function getWeatherData({ latitude, longitude }) {
+async function getWeatherData(latitude, longitude) {
   try {
     // pedir estado actual a la API
     const currentWeather = await getData({
@@ -93,21 +93,47 @@ async function getWeatherData({ latitude, longitude }) {
 function getUserLocation() {
   hideAllPanels();
   console.log('Asking for location...');
-  navigator.geolocation.getCurrentPosition(
-    (location) => {
-      const { latitude, longitude } = location.coords;
+  if (!localStorage.getItem('position')) {
+    navigator.geolocation.getCurrentPosition(
+      (location) => {
+        const { latitude, longitude } = location.coords;
+        getWeatherData(latitude, longitude);
+        localStorage.setItem('permission', 'ok');
 
-      getWeatherData({ latitude, longitude });
-      localStorage.setItem('permission', 'ok');
-    },
-    () => {
-      console.error('error getting location');
-      showPanel(error);
-    }
-  );
+        const position = {
+          lat: latitude,
+          long: longitude,
+        };
+
+        localStorage.setItem('position', JSON.stringify(position));
+      },
+
+      () => {
+        console.error('error getting location');
+        showPanel(error);
+      }
+    );
+  } else {
+    const position = localStorage.getItem('position');
+    const positionParsed = JSON.parse(position);
+    const { lat, long } = positionParsed;
+    getWeatherData(lat, long);
+  }
 }
 
 function main() {
+  // REFACTORIZAR PARA NO REPETIR
+  const uptadePositiveLocationButton = positive.querySelector('button');
+  uptadePositiveLocationButton.onclick = () => {
+    localStorage.setItem('position', '');
+    getUserLocation();
+  };
+  const uptdateNegativeLocationButton = negative.querySelector('button');
+  uptdateNegativeLocationButton.onclick = () => {
+    localStorage.setItem('position', '');
+    getUserLocation();
+  };
+
   if (localStorage.getItem('permission') === 'ok') {
     getUserLocation();
   } else {

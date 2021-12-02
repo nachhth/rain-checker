@@ -17,31 +17,33 @@
     <meta name="theme-color" content="#121212">
 </head>
 <body>  
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <header>
         <img src="/img/logo2.png" alt="va a llover?" width="100"/>
     </header>
     <section class="panel permission hidden">
-        <p>Para poder decirte si va a llover o no antes tengo que conocer tu localizacion </p>
+        <p>Para poder decirte si va a llover o no, antes tengo que conocer tu localizacion </p>
         <button class="cta">Ok!</button>
     </section>
 
     <section class="panel positive hidden">
         <img src="/img/umbrella.png" alt="paraguas y lluvia" width="300"/>
         <p>Aqui el texto que <strong>muestra cuando</strong> va a llover</p>
+        <button class="cta update">Actualizar ubicación</button>
     </section>
 
     <section class="panel negative hidden">
         <img src="/img/closed-umbrella.png" alt="paraguas y lluvia" width="300"/>
         <p>Aqui el texto que muestra cuando no va a llover</p>
+        <button class="cta update">Actualizar ubicación</button>
     </section>
 
     <section class="panel error hidden">
-        <h1>😞</h1>
+        <lottie-player src="https://assets3.lottiefiles.com/packages/lf20_pNx6yH.json"  background="transparent"  speed="1"  style="width: 300px; height: 300px;"  loop  autoplay></lottie-player>
         <p>Parece que hubo un error</p>
         <a href="/" class="cta">Volver a intentarlo</a>
 
     </section>
-
     <script type="module" src="/js/main.js"></script>
 </body>
 </html>
