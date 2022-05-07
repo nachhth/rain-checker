@@ -6,7 +6,7 @@ const negative = document.querySelector('.negative');
 const error = document.querySelector('.error');
 
 const API_KEY = '9dc488e97d8239b0fabeec683e6d440b';
-const RAIN_MARGIN = 4;
+const RAIN_MARGIN = 8;
 
 async function getData({ url, options = {} }) {
   const response = await fetch(url, options);
@@ -36,7 +36,9 @@ function showPositive({ city, temperature, weather, nextRain }) {
   const text = positive.querySelector('p');
   text.innerHTML = `
   Ahora mismo hay ${Math.round(temperature)}º C en ${city}, ${weather} y ${
-    nextRain > 0 ? `<strong>probablemente llueva en ${nextRain} hora(s)</strong>.` : '<strong>toca agarrar el paraguas</strong>.'
+    nextRain > 0
+      ? `<strong>probablemente llueva en ${nextRain} hora(s)</strong>.`
+      : '<strong>toca agarrar el paraguas</strong>.'
   }`;
 }
 function showNegative({ city, temperature, weather }) {
@@ -52,13 +54,13 @@ async function getWeatherData(latitude, longitude) {
   try {
     // pedir estado actual a la API
     const currentWeather = await getData({
-      url: `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric&lang=es`,
+      url: `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric&lang=es`
     });
 
     // pedir prediccion proximas horas a la API
 
     const nextHours = await getData({
-      url: `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=current,minutely,daily&appid=${API_KEY}&units=metric&lang=es`,
+      url: `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=current,minutely,daily&appid=${API_KEY}&units=metric&lang=es`
     });
     // comprobar si va a llover en las proximas RAIN_MARGIN horas
 
@@ -73,7 +75,7 @@ async function getWeatherData(latitude, longitude) {
         city: currentWeather.name,
         temperature: currentWeather.main.temp,
         weather: currentWeather.weather[0].description,
-        nextRain,
+        nextRain
       });
     } else {
       // console.log('NO VA A LLOVER');
@@ -81,7 +83,7 @@ async function getWeatherData(latitude, longitude) {
         city: currentWeather.name,
         temperature: currentWeather.main.temp,
         weather: currentWeather.weather[0].description,
-        nextRain,
+        nextRain
       });
     }
   } catch (e) {
@@ -102,7 +104,7 @@ function getUserLocation() {
 
         const position = {
           lat: latitude,
-          long: longitude,
+          long: longitude
         };
 
         localStorage.setItem('position', JSON.stringify(position));
