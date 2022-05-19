@@ -89,3 +89,12 @@ header {
 header img {
   max-width: 5rem;
 }
+
+.button-container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.button-container > button {
+  margin: 20px;
+}

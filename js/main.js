@@ -8,6 +8,8 @@ const error = document.querySelector('.error');
 const API_KEY = '9dc488e97d8239b0fabeec683e6d440b';
 const RAIN_MARGIN = 8;
 
+// ======================================================================
+
 async function getData({ url, options = {} }) {
   const response = await fetch(url, options);
 
@@ -52,23 +54,25 @@ function showNegative({ city, temperature, weather }) {
 
 async function getWeatherData(latitude, longitude) {
   try {
+    console.log(latitude, longitude);
     // pedir estado actual a la API
     const currentWeather = await getData({
       url: `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric&lang=es`
     });
+    console.log({ currentWeather });
 
     // pedir prediccion proximas horas a la API
-
     const nextHours = await getData({
       url: `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=current,minutely,daily&appid=${API_KEY}&units=metric&lang=es`
     });
-    // comprobar si va a llover en las proximas RAIN_MARGIN horas
+    console.log({ nextHours });
 
+    // comprobar si va a llover en las proximas RAIN_MARGIN horas
     const nextRain = nextHours.hourly.findIndex((hour) => {
       return hour.weather[0].main === 'Rain';
     });
-    // mostral panel correspondiente si llueve o no lllueve
 
+    // mostral panel correspondiente si llueve o no lllueve
     if (nextRain > -1 && nextRain <= RAIN_MARGIN) {
       // console.log('SI VA A LLOVER');
       showPositive({
@@ -94,7 +98,7 @@ async function getWeatherData(latitude, longitude) {
 
 function getUserLocation() {
   hideAllPanels();
-  console.log('Asking for location...');
+  // console.log('Asking for location...');
   if (!localStorage.getItem('position')) {
     navigator.geolocation.getCurrentPosition(
       (location) => {
@@ -125,16 +129,33 @@ function getUserLocation() {
 
 function main() {
   // REFACTORIZAR PARA NO REPETIR
-  const uptadePositiveLocationButton = positive.querySelector('button');
-  uptadePositiveLocationButton.onclick = () => {
-    localStorage.setItem('position', '');
-    getUserLocation();
-  };
-  const uptdateNegativeLocationButton = negative.querySelector('button');
-  uptdateNegativeLocationButton.onclick = () => {
-    localStorage.setItem('position', '');
-    getUserLocation();
-  };
+  const updateLocationButton = document.querySelectorAll('.update');
+  updateLocationButton.forEach((e) => {
+    e.onclick = () => {
+      localStorage.setItem('position', '');
+      getUserLocation();
+    };
+  });
+
+  // Tiempo en ARACNOSOFT
+
+  const aracnobutton = document.querySelectorAll('.aracnobutton');
+  aracnobutton.forEach((e) => {
+    e.onclick = () => {
+      getWeatherData(43.306638, -8.2680563);
+    };
+  });
+
+  // Tiempo en ARACNOSOFT
+
+  const sadabutton = document.querySelectorAll('.sadabutton');
+  sadabutton.forEach((e) => {
+    e.onclick = () => {
+      getWeatherData(43.3558231, -8.2615396);
+    };
+  });
+
+  // ======================================
 
   if (localStorage.getItem('permission') === 'ok') {
     getUserLocation();
