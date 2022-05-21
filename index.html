@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -16,6 +17,7 @@
     <meta name="msapplication-TileColor" content="#da532c" />
     <meta name="theme-color" content="#121212" />
   </head>
+
   <body>
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <header>
@@ -30,7 +32,7 @@
       <img src="/img/umbrella.png" alt="paraguas y lluvia" width="300" />
       <p>Aqui el texto que <strong>muestra cuando</strong> va a llover</p>
       <button class="cta update">Actualizar ubicación</button>
-      <div>
+      <div class="button-container">
         <button class="cta sadabutton">Sada</button>
         <button class="cta aracnobutton">Aracnosoft</button>
       </div>
@@ -47,17 +49,12 @@
     </section>
 
     <section class="panel error hidden">
-      <lottie-player
-        src="https://assets3.lottiefiles.com/packages/lf20_pNx6yH.json"
-        background="transparent"
-        speed="1"
-        style="width: 300px; height: 300px"
-        loop
-        autoplay
-      ></lottie-player>
+      <lottie-player src="https://assets3.lottiefiles.com/packages/lf20_pNx6yH.json" background="transparent" speed="1"
+        style="width: 300px; height: 300px" loop autoplay></lottie-player>
       <p>Parece que hubo un error</p>
       <a href="/" class="cta">Volver a intentarlo</a>
     </section>
     <script type="module" src="/js/main.js"></script>
   </body>
+
 </html>
