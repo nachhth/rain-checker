@@ -37,9 +37,8 @@ function showPositive({ city, temperature, weather, nextRain }) {
   showPanel(positive);
   const text = positive.querySelector('p');
   text.innerHTML = `
-  ${Math.round(temperature)}º C en ${city}, ${weather}. ${
-    nextRain > 0 ? `<strong>Probablemente llueva en ${nextRain} hora(s)</strong>.` : '<strong>Esta lloviendo</strong>.'
-  }`;
+  ${Math.round(temperature)}º C en ${city}, ${weather}. 
+  ${nextRain > 0 ? `<strong>Probablemente llueva en ${nextRain} hora(s)</strong>.` : '<strong>Esta lloviendo</strong>.'}`;
 }
 function showNegative({ city, temperature, weather }) {
   showPanel(negative);
@@ -135,21 +134,15 @@ function main() {
   });
 
   // Tiempo en ARACNOSOFT
-
   const aracnobutton = document.querySelectorAll('.aracnobutton');
   aracnobutton.forEach((e) => {
-    e.onclick = () => {
-      getWeatherData(43.306638, -8.2680563);
-    };
+    e.onclick = () => getWeatherData(43.306638, -8.2680563);
   });
 
-  // Tiempo en ARACNOSOFT
-
+  // Tiempo en SADA
   const sadabutton = document.querySelectorAll('.sadabutton');
   sadabutton.forEach((e) => {
-    e.onclick = () => {
-      getWeatherData(43.3558231, -8.2615396);
-    };
+    e.onclick = () => getWeatherData(43.3558231, -8.2615396);
   });
 
   // ======================================
@@ -159,9 +152,7 @@ function main() {
   } else {
     showPanel(permission);
     const permissionButton = permission.querySelector('button');
-    permissionButton.onclick = () => {
-      getUserLocation();
-    };
+    permissionButton.onclick = () => getUserLocation();
   }
 }
 

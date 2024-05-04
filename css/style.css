@@ -38,11 +38,11 @@ section.panel.positive {
 }
 
 section.panel.negative {
-  background-color: palevioletred;
+  background-color: lightsalmon;
 }
 
 section.panel.error {
-  background-color: lightsalmon;
+  background-color: crimson;
 }
 
 section.panel h1 {
@@ -72,6 +72,7 @@ section.panel.hidden {
   border: none;
   text-transform: uppercase;
   border-radius: 15px;
+  cursor: pointer;
 }
 
 .update {
