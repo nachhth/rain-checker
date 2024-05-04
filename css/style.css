@@ -8,7 +8,7 @@
 
 body {
   font-family: 'Work sans', sans-serif;
-  min-height: 100dvh;
+  height: 100dvh;
   background-color: #121212;
   background-image: url('/img/loading.svg');
   background-size: 5rem;
@@ -17,7 +17,7 @@ body {
 }
 
 section.panel {
-  min-height: 100dvh;
+  height: 100dvh;
   padding: 2rem;
   border: 1rem solid #121212;
   font-size: 2rem;
