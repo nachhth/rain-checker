@@ -7,6 +7,8 @@ const error = document.querySelector('.error');
 
 const API_KEY = '9dc488e97d8239b0fabeec683e6d440b';
 const RAIN_MARGIN = 8;
+// probabilidad de precipitacion (0-1) a partir de la cual damos por hecho que llueve
+const POP_THRESHOLD = 0.4;
 
 // ======================================================================
 
@@ -48,6 +50,24 @@ function showNegative({ city, temperature, weather }) {
   <strong>No va a llover</strong> en las próximas ${RAIN_MARGIN} horas.`;
 }
 
+// Devuelve las horas que faltan para el proximo tramo con lluvia,
+// 0 si esta lloviendo ahora mismo, o -1 si no se espera lluvia.
+function getHoursUntilRain(currentWeather, forecastList) {
+  if (currentWeather.weather[0].main === 'Rain') {
+    return 0;
+  }
+
+  const rain = forecastList.find(
+    (slot) => slot.weather[0].main === 'Rain' || slot.pop >= POP_THRESHOLD
+  );
+  if (!rain) {
+    return -1;
+  }
+
+  const hours = Math.round((rain.dt * 1000 - Date.now()) / 3600000);
+  return Math.max(hours, 1);
+}
+
 async function getWeatherData(latitude, longitude) {
   try {
     console.log(latitude, longitude);
@@ -57,16 +77,14 @@ async function getWeatherData(latitude, longitude) {
     });
     console.log({ currentWeather });
 
-    // pedir prediccion proximas horas a la API
+    // pedir prediccion proximas horas a la API (tramos de 3 horas)
     const nextHours = await getData({
-      url: `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=current,minutely,daily&appid=${API_KEY}&units=metric&lang=es`
+      url: `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric&lang=es`
     });
     console.log({ nextHours });
 
     // comprobar si va a llover en las proximas RAIN_MARGIN horas
-    const nextRain = nextHours.hourly.findIndex((hour) => {
-      return hour.weather[0].main === 'Rain';
-    });
+    const nextRain = getHoursUntilRain(currentWeather, nextHours.list);
 
     // mostral panel correspondiente si llueve o no lllueve
     if (nextRain > -1 && nextRain <= RAIN_MARGIN) {
